@@ -1,0 +1,33 @@
+Package: hilbertv4
+Type: Package
+Title: Create and Annotate 'Hilbert Curve' 'IPv4' Heatmaps
+Version: 0.1.0
+Date: 2018-02-05
+Authors@R: c(
+    person("Bob", "Rudis", email = "bob@rud.is", role = c("aut", "cre"), 
+           comment = c(ORCID = "0000-0001-5670-2640"))
+  )
+Encoding: UTF-8
+Maintainer: Bob Rudis <bob@rud.is>
+Description: A 12th-order 'Hilbert Curve' can be used to represent the entire 'IPv4'
+     address space with each pixel being one 'Class C' (256 nodes). Tools are provided
+     to tranform sets of 'IPv4' addresses into 'Hilbert Curve' position values and,
+     ultimately, 'ggplot2' objects.
+URL: https://github.com/hrbrmstr/hilbertv4
+BugReports: https://github.com/hrbrmstr/hilbertv4/issues
+License: MIT + file LICENSE
+Suggests:
+    viridis,
+    testthat,
+    covr
+Depends:
+    R (>= 3.2.0)
+Imports:
+    dplyr,
+    iptools,
+    ggplot2,
+    scales,
+    utils,
+    Rcpp
+RoxygenNote: 6.0.1.9000
+LinkingTo: Rcpp

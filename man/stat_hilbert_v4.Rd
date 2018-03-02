@@ -37,8 +37,9 @@ will be used as the layer data.}
 
 \item{bpp}{specifies the number of address space bits assigned to each pixel
 in the output image. By default each pixel represents a /24 network,
-which corresponds to 8 host bits (i.e., 256 hosts). Valid values are
-8, 10, 12, 14, and 16 (for now).}
+which corresponds to 8 host bits (i.e., 256 addresses). Valid values are
+8 (Class C; /24; 256 addresses), 10 (1,024 addresses), 12 (4,096 addresses),
+14 (16,384 addresses), and 16 (Class B; /16; 65,536 addresses) (for now).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -64,6 +65,10 @@ to the paired geom/stat.}
 }
 \description{
 ggplot2 `Stat` for Hilbert IPv4 heatmaps
+}
+\note{
+you can use the returned `..pct..` to get the the percentage a dot (network)
+      has been filled.
 }
 \examples{
 # only doing this to generate some random values to show

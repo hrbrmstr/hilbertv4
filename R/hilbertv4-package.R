@@ -17,9 +17,10 @@
 #' @name hilbertv4
 #' @docType package
 #' @author Bob Rudis (bob@@rud.is)
-#' @importFrom dplyr count
+#' @importFrom dplyr count distinct
 #' @importFrom ggplot2 Stat ggproto Geom CoordCartesian theme element_blank element_rect aes
 #' @importFrom iptools ip_to_numeric
+#' @import AsioHeaders
 #' @useDynLib hilbertv4
 #' @importFrom Rcpp sourceCpp
 NULL

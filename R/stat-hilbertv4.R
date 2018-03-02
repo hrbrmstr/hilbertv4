@@ -12,11 +12,15 @@ StatHilbertV4 <- ggplot2::ggproto(
   },
 
   setup_data = function(self, data, params) {
+    data <- data.frame(data)
     data$ip <- if (is.character(data$ip)) iptools::ip_to_numeric(data$ip) else data$ip
+    data <- dplyr::distinct(data) # remove dups
     data <- cbind(data, ips_to_xy(data$ip, params$bpi, params$bpp))
     data <- dplyr::count(data, PANEL, x, y)
+    data <- dplyr::ungroup(data)
     data$ip <- 0
     data$y <- -(data$y)
+    data$pct <- data$n / (2^params$bpp)
     data
   },
 
@@ -35,8 +39,11 @@ StatHilbertV4 <- ggplot2::ggproto(
 #' @param bpi bits per image (very likely changing to a CIDR notation)
 #' @param bpp specifies the number of address space bits assigned to each pixel
 #'        in the output image. By default each pixel represents a /24 network,
-#'        which corresponds to 8 host bits (i.e., 256 hosts). Valid values are
-#'        8, 10, 12, 14, and 16 (for now).
+#'        which corresponds to 8 host bits (i.e., 256 addresses). Valid values are
+#'        8 (Class C; /24; 256 addresses), 10 (1,024 addresses), 12 (4,096 addresses),
+#'        14 (16,384 addresses), and 16 (Class B; /16; 65,536 addresses) (for now).
+#' @note you can use the returned `..pct..` to get the the percentage a dot (network)
+#'       has been filled.
 #' @export
 #' @examples
 #' # only doing this to generate some random values to show

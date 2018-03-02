@@ -2,6 +2,10 @@
 
 using namespace Rcpp;
 
+extern unsigned int addr_space_first_addr;
+extern unsigned int addr_space_last_addr;
+extern unsigned int allones;
+
 void ip_to_xy(unsigned ip, unsigned *x, unsigned *y,
               int addr_space_bits_per_image = 32L,
               int addr_space_bits_per_pixel = 8L) {
@@ -9,8 +13,6 @@ void ip_to_xy(unsigned ip, unsigned *x, unsigned *y,
   int i;
   int order = (addr_space_bits_per_image - addr_space_bits_per_pixel) / 2L;
   unsigned int state, row, s;
-
-  unsigned int addr_space_first_addr = 0L;
 
   s = (((unsigned)ip) - addr_space_first_addr) >> addr_space_bits_per_pixel;
 

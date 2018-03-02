@@ -1,0 +1,381 @@
+---
+title: "IPv4 CIDR Blocks"
+author: "Bob Rudis"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{IPv4 CIDR Blocks}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+<style>
+
+.wikitable.plainrowheaders th[scope=row] {
+    font-weight: normal;
+    text-align: left;
+}
+.wikitable td ul, .wikitable td ol, .wikitable td dl {
+    text-align: left;
+}
+.toc.hlist ul, #toc.hlist ul, .wikitable.hlist td ul, .wikitable.hlist td ol, .wikitable.hlist td dl {
+    text-align: inherit;
+}
+
+</style>
+
+Incorporated from <https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#IPv4_CIDR_blocks> so as not to reinvent the wheel:
+
+<table class="wikitable">
+<caption>IPv4 CIDR</caption>
+<tbody><tr>
+<th rowspan="2">Address<br>
+format</th>
+<th rowspan="2">Difference<br>
+to last address</th>
+<th rowspan="2">Mask</th>
+<th colspan="2">Addresses</th>
+<th rowspan="2">Relative<br>
+to class<br>
+A, B, C</th>
+<th rowspan="2">Restrictions<br>
+on <i>a</i>, <i>b</i>, <i>c</i> and <i>d</i><br>
+<small>(0..255 unless noted)</small></th>
+<th rowspan="2">Typical use</th>
+</tr>
+<tr>
+<th>Decimal</th>
+<th>2<sup><i>n</i></sup></th>
+</tr>
+<tr>
+<td><span class="nowrap"><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/32</span></td>
+<td>+0.0.0.0</td>
+<td>255.255.255.255</td>
+<td>1</td>
+<td>2<sup>0</sup></td>
+<td>&nbsp;<span class="frac nowrap"><sup>1</sup>⁄<sub>256</sub></span> C</td>
+<td></td>
+<td>Host route</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/31</td>
+<td>+0.0.0.1</td>
+<td>255.255.255.254</td>
+<td>2</td>
+<td>2<sup>1</sup></td>
+<td>&nbsp;<span class="frac nowrap"><sup>1</sup>⁄<sub>128</sub></span> C</td>
+<td><i>d</i> = 0 ... (2<i>n</i>) ... 254</td>
+<td>Point to point links (<a href="/wiki/Request_for_Comments_(identifier)" class="mw-redirect" title="Request for Comments (identifier)">RFC</a>&nbsp;<a rel="nofollow" class="external text" href="https://tools.ietf.org/html/rfc3021">3021</a>)</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/30</td>
+<td>+0.0.0.3</td>
+<td>255.255.255.252</td>
+<td>4</td>
+<td>2<sup>2</sup></td>
+<td>&nbsp;<span class="frac nowrap"><sup>1</sup>⁄<sub>64</sub></span> C</td>
+<td><i>d</i> = 0 ... (4<i>n</i>) ... 252</td>
+<td><span class="nowrap">Point to point links (glue network)</span></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/29</td>
+<td>+0.0.0.7</td>
+<td>255.255.255.248</td>
+<td>8</td>
+<td>2<sup>3</sup></td>
+<td>&nbsp;<span class="frac nowrap"><sup>1</sup>⁄<sub>32</sub></span> C</td>
+<td><i>d</i> = 0 ... (8<i>n</i>) ... 248</td>
+<td>Smallest multi-host network</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/28</td>
+<td>+0.0.0.15</td>
+<td>255.255.255.240</td>
+<td>16</td>
+<td>2<sup>4</sup></td>
+<td>&nbsp;<span class="frac nowrap"><sup>1</sup>⁄<sub>16</sub></span> C</td>
+<td><i>d</i> = 0 ... (16<i>n</i>) ... 240</td>
+<td rowspan="3">Small <a href="/wiki/LAN" class="mw-redirect" title="LAN">LAN</a></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/27</td>
+<td>+0.0.0.31</td>
+<td>255.255.255.224</td>
+<td>32</td>
+<td>2<sup>5</sup></td>
+<td>⅛ C</td>
+<td><i>d</i> = 0 ... (32<i>n</i>) ... 224</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/26</td>
+<td>+0.0.0.63</td>
+<td>255.255.255.192</td>
+<td>64</td>
+<td>2<sup>6</sup></td>
+<td>¼ C</td>
+<td><i>d</i> = 0, 64, 128, 192</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.<i>d</i>/25</td>
+<td>+0.0.0.127</td>
+<td>255.255.255.128</td>
+<td>128</td>
+<td>2<sup>7</sup></td>
+<td>½ C</td>
+<td><i>d</i> = 0, 128</td>
+<td rowspan="2">Large <a href="/wiki/LAN" class="mw-redirect" title="LAN">LAN</a></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/24</td>
+<td>+0.0.0.255</td>
+<td>255.255.255.0</td>
+<td>256</td>
+<td>2<sup>8</sup></td>
+<td>1 C</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/23</td>
+<td>+0.0.1.255</td>
+<td>255.255.254.0</td>
+<td>512</td>
+<td>2<sup>9</sup></td>
+<td>2 C</td>
+<td><i>c</i> = 0 ... (2<i>n</i>) ... 254</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/22</td>
+<td>+0.0.3.255</td>
+<td>255.255.252.0</td>
+<td>1,024</td>
+<td>2<sup>10</sup></td>
+<td>4 C</td>
+<td><i>c</i> = 0 ... (4<i>n</i>) ... 252</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/21</td>
+<td>+0.0.7.255</td>
+<td>255.255.248.0</td>
+<td>2,048</td>
+<td>2<sup>11</sup></td>
+<td>8 C</td>
+<td><i>c</i> = 0 ... (8<i>n</i>) ... 248</td>
+<td rowspan="2">Small <a href="/wiki/ISP" class="mw-redirect" title="ISP">ISP</a>/ large business</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/20</td>
+<td>+0.0.15.255</td>
+<td>255.255.240.0</td>
+<td>4,096</td>
+<td>2<sup>12</sup></td>
+<td>16 C</td>
+<td><i>c</i> = 0 ... (16<i>n</i>) ... 240</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/19</td>
+<td>+0.0.31.255</td>
+<td>255.255.224.0</td>
+<td>8,192</td>
+<td>2<sup>13</sup></td>
+<td>32 C</td>
+<td><i>c</i> = 0 ... (32<i>n</i>) ... 224</td>
+<td rowspan="3"><a href="/wiki/ISP" class="mw-redirect" title="ISP">ISP</a>/ large business</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/18</td>
+<td>+0.0.63.255</td>
+<td>255.255.192.0</td>
+<td>16,384</td>
+<td>2<sup>14</sup></td>
+<td>64 C</td>
+<td><i>c</i> = 0, 64, 128, 192</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.<i>c</i>.0/17</td>
+<td>+0.0.127.255</td>
+<td>255.255.128.0</td>
+<td>32,768</td>
+<td>2<sup>15</sup></td>
+<td>128 C</td>
+<td><i>c</i> = 0, 128</td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/16</td>
+<td>+0.0.255.255</td>
+<td>255.255.0.0</td>
+<td>65,536</td>
+<td>2<sup>16</sup></td>
+<td>256 C = B</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/15</td>
+<td>+0.1.255.255</td>
+<td>255.254.0.0</td>
+<td>131,072</td>
+<td>2<sup>17</sup></td>
+<td>2 B</td>
+<td><i>b</i> = 0 ... (2<i>n</i>) ... 254</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/14</td>
+<td>+0.3.255.255</td>
+<td>255.252.0.0</td>
+<td>262,144</td>
+<td>2<sup>18</sup></td>
+<td>4 B</td>
+<td><i>b</i> = 0 ... (4<i>n</i>) ... 252</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/13</td>
+<td>+0.7.255.255</td>
+<td>255.248.0.0</td>
+<td>524,288</td>
+<td>2<sup>19</sup></td>
+<td>8 B</td>
+<td><i>b</i> = 0 ... (8<i>n</i>) ... 248</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/12</td>
+<td>+0.15.255.255</td>
+<td>255.240.0.0</td>
+<td>1,048,576</td>
+<td>2<sup>20</sup></td>
+<td>16 B</td>
+<td><i>b</i> = 0 ... (16<i>n</i>) ... 240</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/11</td>
+<td>+0.31.255.255</td>
+<td>255.224.0.0</td>
+<td>2,097,152</td>
+<td>2<sup>21</sup></td>
+<td>32 B</td>
+<td><i>b</i> = 0 ... (32<i>n</i>) ... 224</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/10</td>
+<td>+0.63.255.255</td>
+<td>255.192.0.0</td>
+<td>4,194,304</td>
+<td>2<sup>22</sup></td>
+<td>64 B</td>
+<td><i>b</i> = 0, 64, 128, 192</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.<i>b</i>.0.0/9</td>
+<td>+0.127.255.255</td>
+<td>255.128.0.0</td>
+<td>8,388,608</td>
+<td>2<sup>23</sup></td>
+<td>128 B</td>
+<td><i>b</i> = 0, 128</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/8</td>
+<td>+0.255.255.255</td>
+<td>255.0.0.0</td>
+<td>16,777,216</td>
+<td>2<sup>24</sup></td>
+<td>256 B = A</td>
+<td></td>
+<td>Largest <a href="/wiki/Internet_Assigned_Numbers_Authority" title="Internet Assigned Numbers Authority">IANA</a> block allocation</td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/7</td>
+<td>+1.255.255.255</td>
+<td>254.0.0.0</td>
+<td>33,554,432</td>
+<td>2<sup>25</sup></td>
+<td>2 A</td>
+<td><i>a</i> = 0 ... (2<i>n</i>) ... 254</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/6</td>
+<td>+3.255.255.255</td>
+<td>252.0.0.0</td>
+<td>67,108,864</td>
+<td>2<sup>26</sup></td>
+<td>4 A</td>
+<td><i>a</i> = 0 ... (4<i>n</i>) ... 252</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/5</td>
+<td>+7.255.255.255</td>
+<td>248.0.0.0</td>
+<td>134,217,728</td>
+<td>2<sup>27</sup></td>
+<td>8 A</td>
+<td><i>a</i> = 0 ... (8<i>n</i>) ... 248</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/4</td>
+<td>+15.255.255.255</td>
+<td>240.0.0.0</td>
+<td>268,435,456</td>
+<td>2<sup>28</sup></td>
+<td>16 A</td>
+<td><i>a</i> = 0 ... (16<i>n</i>) ... 240</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/3</td>
+<td>+31.255.255.255</td>
+<td>224.0.0.0</td>
+<td>536,870,912</td>
+<td>2<sup>29</sup></td>
+<td>32 A</td>
+<td><i>a</i> = 0 ... (32<i>n</i>) ... 224</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/2</td>
+<td>+63.255.255.255</td>
+<td>192.0.0.0</td>
+<td>1,073,741,824</td>
+<td>2<sup>30</sup></td>
+<td>64 A</td>
+<td><i>a</i> = 0, 64, 128, 192</td>
+<td></td>
+</tr>
+<tr>
+<td><i>a</i>.0.0.0/1</td>
+<td>+127.255.255.255</td>
+<td>128.0.0.0</td>
+<td>2,147,483,648</td>
+<td>2<sup>31</sup></td>
+<td>128 A</td>
+<td><i>a</i> = 0, 128</td>
+<td></td>
+</tr>
+<tr>
+<td>0.0.0.0/0</td>
+<td>+255.255.255.255</td>
+<td>0.0.0.0</td>
+<td>4,294,967,296</td>
+<td>2<sup>32</sup></td>
+<td>256 A</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>

@@ -19,7 +19,9 @@ License: MIT + file LICENSE
 Suggests:
     viridis,
     testthat,
-    covr
+    covr,
+    knitr,
+    rmarkdown
 Depends:
     R (>= 3.2.0)
 Imports:
@@ -28,6 +30,8 @@ Imports:
     ggplot2,
     scales,
     utils,
-    Rcpp
+    Rcpp,
+    AsioHeaders
 RoxygenNote: 6.0.1.9000
-LinkingTo: Rcpp
+LinkingTo: BH, Rcpp, AsioHeaders
+VignetteBuilder: knitr

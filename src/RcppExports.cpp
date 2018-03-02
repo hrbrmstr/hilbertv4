@@ -5,6 +5,19 @@
 
 using namespace Rcpp;
 
+// bbox_cidr
+List bbox_cidr(CharacterVector cidr, int addr_space_bits_per_image, int addr_space_bits_per_pixel);
+RcppExport SEXP _hilbertv4_bbox_cidr(SEXP cidrSEXP, SEXP addr_space_bits_per_imageSEXP, SEXP addr_space_bits_per_pixelSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< CharacterVector >::type cidr(cidrSEXP);
+    Rcpp::traits::input_parameter< int >::type addr_space_bits_per_image(addr_space_bits_per_imageSEXP);
+    Rcpp::traits::input_parameter< int >::type addr_space_bits_per_pixel(addr_space_bits_per_pixelSEXP);
+    rcpp_result_gen = Rcpp::wrap(bbox_cidr(cidr, addr_space_bits_per_image, addr_space_bits_per_pixel));
+    return rcpp_result_gen;
+END_RCPP
+}
 // ips_to_xy
 List ips_to_xy(std::vector<unsigned> ips, int addr_space_bits_per_image, int addr_space_bits_per_pixel);
 RcppExport SEXP _hilbertv4_ips_to_xy(SEXP ipsSEXP, SEXP addr_space_bits_per_imageSEXP, SEXP addr_space_bits_per_pixelSEXP) {
@@ -20,6 +33,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_hilbertv4_bbox_cidr", (DL_FUNC) &_hilbertv4_bbox_cidr, 3},
     {"_hilbertv4_ips_to_xy", (DL_FUNC) &_hilbertv4_ips_to_xy, 3},
     {NULL, NULL, 0}
 };
